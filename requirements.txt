@@ -1,0 +1,5 @@
+torch>=2.0
+numpy
+scipy
+matplotlib
+transformers>=4.30  # Study 1 (GPT-2 fine-tuning) only

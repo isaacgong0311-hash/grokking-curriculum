@@ -1,0 +1,68 @@
+{
+  "_provenance": "Every number in this file was either pasted directly from an executed Colab notebook's printed output, or computed live with scipy/numpy and shown to the author before being included. See README 'What is and isn't in this repo' for what is NOT included: full per-step history.json / embed_log.npz files for every run, which live on the author's Google Drive and are not duplicated here.",
+
+  "study1_gpt2_finetuning": {
+    "model": "GPT-2 small, 117M params, pretrained checkpoint",
+    "task": "addition mod 97",
+    "hyperparameters": {
+      "lr": 1e-4, "weight_decay": 0.5, "batch_size": 64,
+      "max_steps": 20000, "eval_every": 250
+    },
+    "grokking_step_threshold": 0.95,
+    "multi_seed_conditions": {
+      "random":    {"seeds": [0, 1, 2, 3], "grokking_steps": [3500, 3750, 4500, 3250], "mean": 3750, "sd": 540},
+      "easy_hard": {"seeds": [0, 1, 2, 3], "grokking_steps": [6250, 6500, 9500, 7250], "mean": 7375, "sd": 1479}
+    },
+    "welch_t_test_random_vs_easy_hard": {"t": 4.60, "p": 0.011, "note": "df=3.44, unequal variance"},
+    "single_seed_conditions_incomplete": {
+      "note": "hard_easy, residue_blocks, balanced_mini_epoch, and most multiplication runs were single seed-0 attempts, several of which did not complete their full 20000-step budget due to free-tier Colab GPU quota limits. Not included here as they are not reliable enough to report as findings; see paper Section 3.2."
+    }
+  },
+
+  "study2_from_scratch": {
+    "model": "2-layer, 4-head decoder-only transformer, 420096 params, random init",
+    "task": "addition mod 97",
+    "hyperparameters": {
+      "lr": 1e-3, "weight_decay": 1.0, "batch_size": 512,
+      "max_steps": 30000, "eval_every": 250, "warmup_steps": 100
+    },
+    "grokking_step_threshold": 0.95,
+    "grokking_steps_full_grid": {
+      "random":              {"seeds": [0, 1, 2], "steps": [1750, 1500, 1750], "mean": 1667, "sd": 144},
+      "easy_hard":            {"seeds": [0, 1, 2], "steps": [1750, 1750, 1500], "mean": 1667, "sd": 144},
+      "hard_easy":            {"seeds": [0, 1, 2], "steps": [1750, 1750, 1750], "mean": 1750, "sd": 0},
+      "residue_blocks":       {"seeds": [0, 1, 2], "steps": [4000, 3250, 4000], "mean": 3750, "sd": 433},
+      "balanced_mini_epoch":  {"seeds": [0, 1, 2], "steps": [1750, 1750, 1500], "mean": 1667, "sd": 144}
+    },
+    "welch_t_test_vs_random": {
+      "easy_hard":           {"t": 0.0,   "p": 1.0,    "pct_change": 0.0},
+      "hard_easy":           {"t": -1.0,  "p": 0.4226, "pct_change": 5.0},
+      "residue_blocks":      {"t": -7.906,"p": 0.0085, "pct_change": 125.0},
+      "balanced_mini_epoch": {"t": 0.0,   "p": 1.0,    "pct_change": 0.0}
+    },
+    "weight_norm": {
+      "note": "Decreases sharply from initialization (~118-119) to ~27-37 by end of training across all 15 runs, consistent with Nanda et al. (2023) Fig. 1 bottom-right. Not strictly monotonic (small fluctuations, likely AdamW noise) but never exhibits a rise-then-fall and carries no leading signal.",
+      "start_range": [118.4, 119.4],
+      "end_range": [27.2, 36.7]
+    },
+    "gini_progress_measure": {
+      "conditions_computed": ["random", "easy_hard"],
+      "seed": 0,
+      "half_rise_step": 1500,
+      "grokking_step": 1750,
+      "lead_steps": 250,
+      "note": "Gini coefficient of the Fourier-transformed embedding norms reaches half its total rise 250 steps before the 95% validation threshold is crossed, in both conditions computed."
+    },
+    "fourier_top_frequencies": {
+      "seed": 0,
+      "random_top5":    [15, 20, 23, 27, 31],
+      "easy_hard_top5": [15, 20, 27, 30, 31],
+      "shared": [15, 20, 27, 31],
+      "shared_count": 4
+    },
+    "multiplication": {
+      "run": false,
+      "note": "RUN_MUL flag in the Study 2 grid script defaults to False. Not run for this paper; noted as a limitation."
+    }
+  }
+}
