@@ -56,13 +56,20 @@ as a limit on the claim, not buried.
 <!--
   NOTE (not rendered): github-readme-stats.vercel.app's public instance has
   been manually paused by its maintainer since ~Jan 2026 due to cost/rate-
-  limit issues (see anuraghazra/github-readme-stats#4737). If the stats
-  cards below aren't loading, that's why -- it's an upstream outage, not a
-  bug in this file. The maintainers' own recommended fix is to self-host
-  a free instance on Vercel (one-click "Deploy" button on the project repo)
-  or generate the cards via a GitHub Action instead of a live API call.
-  Avoid third-party forks that strip the original author's attribution
-  (e.g. pranesh-2005/github-readme-stats-fast has been flagged for this).
+  limit issues (see anuraghazra/github-readme-stats#4737). This is not an
+  isolated incident -- checked against the broader "awesome-github-profile-
+  readme" toolkit list and found the same failure mode on a second,
+  independently-hosted project (github-profile-trophy.vercel.app, currently
+  402 DEPLOYMENT_DISABLED). Free-tier Vercel deployments for popular
+  README widgets appear to hit cost limits somewhat regularly; check
+  liveness before adding any new one from that list, don't assume
+  popularity means uptime. If the stats cards below aren't loading, that's
+  the reason -- it's an upstream outage, not a bug in this file. The
+  maintainers' own recommended fix is to self-host a free instance on
+  Vercel (one-click "Deploy" button on the project repo) or generate the
+  cards via a GitHub Action instead of a live API call. Avoid third-party
+  forks that strip the original author's attribution (e.g.
+  pranesh-2005/github-readme-stats-fast has been flagged for this).
 -->
 <div align="center">
 <img src="https://github-readme-stats.vercel.app/api?username=isaacgong0311-hash&show_icons=true&theme=default&hide_border=false&count_private=true&include_all_commits=true" height="165"/>
@@ -79,6 +86,11 @@ as a limit on the claim, not buried.
 
 <div align="center">
 <img src="https://skillicons.dev/icons?i=python,pytorch,latex,git,github,vscode,bash,cpp&theme=light" />
+
+<br/><br/>
+
+[![LaTeX](https://img.shields.io/badge/LaTeX-008080?style=for-the-badge&logo=latex&logoColor=white)](https://www.latex-project.org/)
+[![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)](https://pytorch.org/)
 </div>
 
 <br/>
